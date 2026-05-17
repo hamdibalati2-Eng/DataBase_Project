@@ -1,0 +1,196 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name=" Tournament &amp; Games Management" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ced95029-b569-4027-895c-af2843a4e088">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50.0" bold="true"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18.0"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12.0" bold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12.0"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle backcolor="#E6DAC3">
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<query language="SQL"><![CDATA[SELECT 
+    t.name as tournament_name,
+    t.status as tournament_status,
+    t.location as tournament_location,
+    COUNT(g.game_id) as scheduled_games,
+    g.tactics as game_strategy,
+    g.stadium as venue,
+    g.jersey_type as kit_type,
+    DATE(g.match_date) as game_date,
+    CASE 
+        WHEN t.status = 'Upcoming' THEN 'Future Event'
+        WHEN t.status = 'Ongoing' THEN 'Active Tournament'
+        ELSE 'Past Event'
+    END as event_classification
+FROM tournaments t
+LEFT JOIN gamesschedule g ON t.tournament_id = g.tournament_id
+GROUP BY t.tournament_id, t.name, t.status, t.location, g.game_id, g.tactics, g.stadium, g.jersey_type, g.match_date
+ORDER BY g.match_date]]></query>
+	<field name="tournament_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tournament_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="tournament_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tournaments"/>
+	</field>
+	<field name="tournament_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tournament_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="tournament_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tournaments"/>
+	</field>
+	<field name="tournament_location" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="tournament_location"/>
+		<property name="com.jaspersoft.studio.field.label" value="tournament_location"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tournaments"/>
+	</field>
+	<field name="scheduled_games" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="scheduled_games"/>
+		<property name="com.jaspersoft.studio.field.label" value="scheduled_games"/>
+	</field>
+	<field name="game_strategy" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="game_strategy"/>
+		<property name="com.jaspersoft.studio.field.label" value="game_strategy"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="gamesschedule"/>
+	</field>
+	<field name="venue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="venue"/>
+		<property name="com.jaspersoft.studio.field.label" value="venue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="gamesschedule"/>
+	</field>
+	<field name="kit_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="kit_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="kit_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="gamesschedule"/>
+	</field>
+	<field name="game_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="game_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="game_date"/>
+	</field>
+	<field name="event_classification" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="event_classification"/>
+		<property name="com.jaspersoft.studio.field.label" value="event_classification"/>
+	</field>
+	<group name="Group1">
+		<expression><![CDATA[$F{tournament_name}]]></expression>
+		<groupHeader>
+			<band height="37">
+				<element kind="frame" uuid="df26104b-a7fc-458f-8a21-50b13c7c7736" mode="Opaque" x="-21" y="7" width="597" height="24" forecolor="#B89F7D" backcolor="#F2EBDF">
+					<element kind="rectangle" uuid="369745f3-8095-4b8b-8b7a-38e42b7aef67" mode="Opaque" x="21" y="0" width="36" height="24" backcolor="#736343">
+						<pen lineWidth="0.0"/>
+					</element>
+					<element kind="textField" uuid="ef0a10c7-2940-4ac1-a69e-db1a00ae6f2e" x="68" y="0" width="413" height="24" forecolor="#736343" bold="true" style="SubTitle">
+						<expression><![CDATA[$F{tournament_name}]]></expression>
+					</element>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<title height="136" splitType="Stretch">
+		<element kind="staticText" uuid="1a652692-054a-40f3-ade5-68d8da36626d" x="90" y="0" width="580" height="62" vTextAlign="Middle" style="Title">
+			<text><![CDATA[Tournament Stats]]></text>
+		</element>
+		<element kind="staticText" uuid="88d4231e-f014-4b0d-b871-1737ba63a1ae" x="110" y="62" width="305" height="22" fontName="Times New Roman" style="SubTitle">
+			<text><![CDATA[Competition Schedule & Venue Planning]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader height="16" splitType="Stretch">
+		<element kind="line" uuid="1a61a836-d137-48b1-ad67-6ff64600bf93" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1">
+			<pen lineWidth="0.5" lineColor="#999999"/>
+		</element>
+		<element kind="staticText" uuid="069a9483-1b9d-4492-98f9-17fe1da9a98c" x="0" y="0" width="69" height="15" forecolor="#736343" style="Column header">
+			<text><![CDATA[status]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e7dbb6ca-5178-41ff-8cfd-39f2ffab89c6"/>
+		</element>
+		<element kind="staticText" uuid="f255b431-431f-499c-a636-1eaef0cb4437" x="69" y="0" width="69" height="15" forecolor="#736343" style="Column header">
+			<text><![CDATA[location]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eec17119-3c7e-40ac-af0a-3e9b199de0bf"/>
+		</element>
+		<element kind="staticText" uuid="26100895-3787-499b-9bb8-3b7d38c1d77b" x="138" y="0" width="69" height="15" forecolor="#736343" style="Column header">
+			<text><![CDATA[games]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="256325d8-c6dd-403d-9b79-2446d346dc3d"/>
+		</element>
+		<element kind="staticText" uuid="4264d10a-e68a-4687-85ff-8179962b9cbd" x="207" y="0" width="69" height="15" forecolor="#736343" style="Column header">
+			<text><![CDATA[game_strategy]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="250d67ae-389f-4eab-98c0-c5a36c4eb9f7"/>
+		</element>
+		<element kind="staticText" uuid="9ed93415-cf4c-4618-945a-b7f158e7fbfe" x="276" y="0" width="69" height="15" forecolor="#736343" style="Column header">
+			<text><![CDATA[Staduim]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="32e83ff5-0f17-4503-a9ab-7f864fb604ae"/>
+		</element>
+		<element kind="staticText" uuid="6617082c-80ce-4a88-91fc-503bd63bfcb8" x="345" y="0" width="69" height="15" forecolor="#736343" style="Column header">
+			<text><![CDATA[Jersey]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a61e4e1a-d769-42e1-8fc8-ec4e21bc6882"/>
+		</element>
+		<element kind="staticText" uuid="274a138d-69ec-47c0-855c-c086ec879d5e" x="414" y="0" width="69" height="15" forecolor="#736343" style="Column header">
+			<text><![CDATA[game_date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3cddd96b-d9d9-4e90-b75b-cd134bccf8f7"/>
+		</element>
+		<element kind="staticText" uuid="a834b727-9745-4d86-8c0a-d602bf57e3e3" x="483" y="0" width="69" height="15" forecolor="#736343" style="Column header">
+			<text><![CDATA[event_classification]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="432c17c6-08da-4294-b53d-31323e11662f"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<element kind="frame" uuid="a98495d8-3c8d-4fa0-81f5-30c3efc2f766" mode="Opaque" x="0" y="0" width="555" height="15" style="Row">
+				<element kind="textField" uuid="c3f79bfb-f37e-4d09-a7f3-9afbc127015d" x="0" y="0" width="69" height="15" textAdjust="StretchHeight" style="Detail">
+					<expression><![CDATA[$F{tournament_status}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e7dbb6ca-5178-41ff-8cfd-39f2ffab89c6"/>
+				</element>
+				<element kind="textField" uuid="35f97999-11c3-4ce6-a17a-4b1f380a3d8d" x="69" y="0" width="69" height="15" textAdjust="StretchHeight" style="Detail">
+					<expression><![CDATA[$F{tournament_location}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eec17119-3c7e-40ac-af0a-3e9b199de0bf"/>
+				</element>
+				<element kind="textField" uuid="4e76dd47-37dc-4395-ac3f-5dd5fb26fb9f" x="138" y="0" width="69" height="15" textAdjust="StretchHeight" style="Detail">
+					<expression><![CDATA[$F{scheduled_games}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="256325d8-c6dd-403d-9b79-2446d346dc3d"/>
+				</element>
+				<element kind="textField" uuid="e4b8d8e9-def0-4ab4-9870-6aee37d6b92b" x="207" y="0" width="69" height="15" textAdjust="StretchHeight" style="Detail">
+					<expression><![CDATA[$F{game_strategy}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="250d67ae-389f-4eab-98c0-c5a36c4eb9f7"/>
+				</element>
+				<element kind="textField" uuid="ebed1af3-1ad7-48b8-904e-7d6549eeda21" x="276" y="0" width="69" height="15" textAdjust="StretchHeight" style="Detail">
+					<expression><![CDATA[$F{venue}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="32e83ff5-0f17-4503-a9ab-7f864fb604ae"/>
+				</element>
+				<element kind="textField" uuid="76338330-f9e7-4e0a-af2b-c31c3edcc8a0" x="345" y="0" width="69" height="15" textAdjust="StretchHeight" style="Detail">
+					<expression><![CDATA[$F{kit_type}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a61e4e1a-d769-42e1-8fc8-ec4e21bc6882"/>
+				</element>
+				<element kind="textField" uuid="fbae718f-0c14-4fcd-b058-ccb6a0946c0d" x="414" y="0" width="69" height="15" textAdjust="StretchHeight" style="Detail">
+					<expression><![CDATA[$F{game_date}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3cddd96b-d9d9-4e90-b75b-cd134bccf8f7"/>
+				</element>
+				<element kind="textField" uuid="ecfe07d3-4a7b-4c31-a210-2d1969c3406f" x="483" y="0" width="69" height="15" textAdjust="StretchHeight" style="Detail">
+					<expression><![CDATA[$F{event_classification}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="432c17c6-08da-4294-b53d-31323e11662f"/>
+				</element>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch">
+		<element kind="line" uuid="fa45a887-615a-4d84-a2d7-8a2219671b3c" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1">
+			<pen lineWidth="0.5" lineColor="#999999"/>
+		</element>
+	</columnFooter>
+	<pageFooter height="25" splitType="Stretch">
+		<element kind="frame" uuid="183682bc-d976-4756-83e0-6625a3f98ed1" mode="Opaque" x="-21" y="1" width="597" height="24" forecolor="#D0B48E" backcolor="#F2EBDF">
+			<element kind="textField" uuid="0193f9b3-1559-491a-8580-b6988863b6a1" x="533" y="0" width="40" height="20" forecolor="#736343" fontSize="10.0" evaluationTime="Report" bold="false" vTextAlign="Middle" style="Column header">
+				<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="d00b105e-494b-418b-8ac9-8b1b4824f4f0" x="453" y="0" width="80" height="20" forecolor="#736343" fontSize="10.0" bold="false" hTextAlign="Right" vTextAlign="Middle" style="Column header">
+				<expression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></expression>
+			</element>
+			<element kind="textField" uuid="0616f3fe-0354-456f-8911-ec30ec51a5ae" x="22" y="1" width="197" height="20" forecolor="#736343" fontSize="10.0" pattern="EEEEE dd MMMMM yyyy" bold="false" vTextAlign="Middle" style="Column header">
+				<expression><![CDATA[new java.util.Date()]]></expression>
+			</element>
+		</element>
+	</pageFooter>
+	<summary splitType="Stretch"/>
+</jasperReport>

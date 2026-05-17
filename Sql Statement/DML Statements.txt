@@ -1,0 +1,71 @@
+INSERT INTO users (user_name, user_password, user_role) VALUES 
+('player_user', 'player123', 'Player'),
+('coach_user', 'coach123', 'HeadCoach'),
+('doctor_user', 'doctor123', 'Doctor'),
+('manager_user', 'manager123', 'Manager');
+
+
+
+
+INSERT INTO trainingsessions (session_type, session_date) VALUES 
+('Physical', '2025-05-24 09:00:00'),
+('Rest', '2025-05-24 13:00:00'),
+('Recovery', '2025-05-25 10:00:00'),
+('Physical', '2025-05-25 15:00:00');
+
+
+
+INSERT INTO tournaments (name, start_date, end_date, status, location) VALUES 
+('Spring Championship', '2025-06-01 09:00:00', '2025-06-03 18:00:00', 'Upcoming', 'Sports Complex A'),
+('Summer League', '2025-05-20 10:00:00', '2025-05-25 17:00:00', 'Ongoing', 'Stadium B'),
+('Winter Tournament', '2025-03-15 09:00:00', '2025-03-17 16:00:00', 'Completed', 'Arena C'),
+('Regional Cup', '2025-07-10 08:00:00', '2025-07-12 19:00:00', 'Upcoming', 'Main Stadium');
+
+
+
+INSERT INTO players (player_id, age, healthstatus, position, nationality, jerseynumber, user_name) 
+VALUES (1, 25, 'Healthy', 'Forward', 'American', 10, 'player_user');
+
+
+
+
+
+INSERT INTO injuries (player_id, injury_date, health_status, recovery_date, injury_description) 
+VALUES (1, '2025-05-20', 'Minor Sprain', '2025-05-28', 'Ankle sprain');
+
+
+
+INSERT INTO headcoaches (coach_id, contract_id, age, nationality) 
+VALUES (2, NULL, 45, 'Canadian');
+
+
+
+
+INSERT INTO gamesschedule (tournament_id, match_date, tactics, stadium, jersey_type, tournaments_name) VALUES 
+(1, '2025-06-01 15:00:00', '4-3-3', 'Arena A', 'Home', 'Spring Championship'),
+(2, '2025-05-22 14:30:00', '3-5-2', 'Stadium B', 'Away', 'Summer League'),
+(3, '2025-03-16 16:00:00', '4-4-2', 'Field C', 'Home', 'Winter Tournament'),
+(4, '2025-07-11 13:00:00', '5-3-2', 'Main Stadium', 'Away', 'Regional Cup');
+
+
+
+
+INSERT INTO doctors (doctor_id, specialization, contract_id, age) 
+VALUES (3, 'Sports Medicine', NULL, 38);
+
+
+
+
+
+INSERT INTO contract (user_id, start_date, end_date, salary) VALUES 
+(1, '2025-01-01 09:00:00', '2026-12-31 23:59:59', 75000.00),  -- Player
+(2, '2025-01-01 09:00:00', '2027-12-31 23:59:59', 120000.00), -- HeadCoach
+(3, '2025-01-01 09:00:00', '2026-12-31 23:59:59', 95000.00),  -- Doctor
+(4, '2025-01-01 09:00:00', '2028-12-31 23:59:59', 150000.00);
+
+
+INSERT INTO achievements (title, description, achievement_date) VALUES 
+('Player of Month', 'Best March player', '2025-03-31 18:00:00'),
+('Champion', 'Tournament winner', '2025-03-17 20:30:00'),
+('Perfect Attendance', 'No absences', '2025-04-30 17:00:00'),
+('Top Scorer', 'Most goals', '2025-06-03 19:15:00');
