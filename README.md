@@ -221,10 +221,9 @@ Reports can be exported in:
 
 Database Project — Academic Year 2024/2025
 
-Hamdi Balati
 
-GitHub: @hamdibalati2-Eng
+### Hamdi Balati
+- GitHub: [@hamdibalati2-Eng](https://github.com/hamdibalati2-Eng)
 
-AbdAlrahman Abd Alfatah
-
-GitHub: @AbdAlrahman-Sec
+### AbdAlrahman Abd Alfatah
+- GitHub: [@AbdAlrahman-Sec](https://github.com/AbdAlrahman-Sec)
