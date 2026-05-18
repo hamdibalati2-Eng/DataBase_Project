@@ -219,7 +219,7 @@ Reports can be exported in:
 
 # Authors
 
-Database Project — Academic Year 2024/2025
+Database Project — Academic Year 2024/2025 developed by : 
 
 
 ### Hamdi Balati
